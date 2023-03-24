@@ -1,12 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
+
 //Console.WriteLine("Hello, World!");
 //#define Zadacha_1
 //#define Zadacha_2
 //#define Zadacha_3
-#define Zadacha_4
+//#define Zadacha_4
 //#define Zadacha_5
 //#define Zadacha_6
-//#define Zadacha_7
+#define Zadacha_7
 
 #if Zadacha_1
 Console.WriteLine("Введите целое число от 1 до 100:  ");
@@ -84,19 +86,107 @@ foreach (string item in arr)
     arr_razryad[i++] = int.Parse(item);
 }
 int[] arr_number = new int[6];
-for (int j = 5; j >= 0; j--)
+for (int j=5;j>=0;j--)
 {
     arr_number[j] = number % 10;
-    number /= 10;
-    Console.WriteLine(j+"-ый элемент="+arr_number[j]);
+    number = number / 10;
 }
 int rezult = 0;
-for (int j = 0;j < 6; j++)// не придумала пока как поменять разряды местами
-{
+int buffer = arr_number[arr_razryad[0]];
+arr_number[arr_razryad[0]] = arr_number[arr_razryad[1]];
+arr_number[arr_razryad[1]] = buffer;
+for (int j = 0; j < 6; j++) Console.Write(arr_number[j]);
+#endif
 
+#if Zadacha_5
+using System.Globalization;
+
+Console.WriteLine("Введите дату: ");
+string data_vvod = Console.ReadLine();
+string[] data = data_vvod.Split(new Char[] { '.' });
+int[] arr_data = new int[3];
+int i = 0;
+foreach (string item in data)
+{
+    arr_data[i++] = int.Parse(item);
 }
+/*foreach (int item in arr_data)
+{
+   Console.WriteLine(item) ;
+}*/
+if (arr_data[1] >= 3 && arr_data[1] <= 5) Console.WriteLine("Spring");
+else if (arr_data[1] >= 6 && arr_data[1] <= 8) Console.WriteLine("Summer");
+else if (arr_data[1] >= 9 && arr_data[1] <= 11) Console.WriteLine("Autum");
+else Console.Write("Winter ");
+
+
+DateTime dateValue = new DateTime(arr_data[2], arr_data[1], arr_data[0]);
+Console.WriteLine(dateValue.DayOfWeek);
+
+
+#endif
+
+#if Zadacha_6
+Console.WriteLine("Введите значение температуры: ");
+double temp =Convert.ToDouble(Console.ReadLine());
+Console.WriteLine("В какую шкалу перевести: \n 1. В шкалу Цельсия\n   2. В шкалу Фаренгейта");
+int var=Convert.ToInt32(Console.ReadLine());
+bool check = true;
+while (check)
+{
+    if (var == 1)
+    {
+        temp = (temp - 32)*5/9;
+        Console.WriteLine("Значение по Цельсию равно " + temp);
+        check = false;
+    }
+
+    else if (var == 2)
+    {
+        temp = 1.8 * temp + 32;
+        Console.WriteLine("Значение по Фаренгейту равно " + temp);
+        check = false;
+    }
+    else
+    {
+        Console.WriteLine("Повторите ввод: ");
+        var = Convert.ToInt32(Console.ReadLine());
+    }
+}
+
+/*ConsoleKeyInfo KeyPress;   хотела, чтобы стрелочка переходила, но пока не получилось 
+
+Console.TreatControlCAsInput = true;
+
+KeyPress = Console.ReadKey();
+do
+{
+    KeyPress = Console.ReadKey();
+
+} while (KeyPress.Key != ConsoleKey.Enter);*/
+
+
 #endif
 
 #if Zadacha_7
+Console.WriteLine("Введите диапазон: начальное значение и конечное значение: ");
+string[] arr = Console.ReadLine().Split(new Char[] { ' ' });
+int[] diapazon = new int[2];
+int i = 0;
+foreach (string item in arr)
+{
+    diapazon[i++] = int.Parse(item);
+}
+if (diapazon[0] > diapazon[1])
+{
+    int buffer = diapazon[0];
+    diapazon[0] = diapazon[1];
+    diapazon[1] = buffer;   
+}
 
+Console.WriteLine("В диапазон от " + diapazon[0] + " до " + diapazon[1] + " входят следующие четные числа: ");
+for (int j = diapazon[0]; j <= diapazon[1];j++)
+{
+    if (j % 2 == 0) Console.Write(j + "  ");
+}
 #endif
